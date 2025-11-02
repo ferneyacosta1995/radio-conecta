@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Radio Conecta | Más que radio, somos tu compañía</title>
+  <link rel="stylesheet" href="css/estilos.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="img/logo/favicon.png" type="image/png">
+  <link rel="stylesheet" href="css/estilos.css?v=1.0">
+</head>
+
+<body>
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="logo">
+      <img src="img/logo/logo.png" alt="Radio Conecta Logo" />
+    </div>
+
+    <nav>
+      <ul>
+        <li><a href="index.html" class="active">Inicio</a></li>
+        <li><a href="radio.html">Radio</a></li>
+        <li><a href="noticias.html">Noticias</a></li>
+        <li><a href="top10.html">Top 10</a></li>
+        <li><a href="programacion.html">Programación</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+
+  <a href="radio.html" class="btn-live-header">Escuchar en vivo</a>
+  </header>
+
+  <!-- ===== CONTENIDO CON MÁRGENES ===== -->
+  <div id="pjax-container">
+  <div class="contenido-principal">
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" style="background-image: url('img/fondo/fondo-principal.jpg');">
+      <div class="hero-overlay">
+        <h1>Radio Conecta</h1>
+        <p>
+          <svg class="foot-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 18v-6a9 9 0 1 1 18 0v6"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 18a3 3 0 0 0 3 3h3v-6H6a3 3 0 0 0-3 3Zm18 0a3 3 0 0 1-3 3h-3v-6h3a3 3 0 0 1 3 3Z"/>
+          </svg>
+          Más que radio, somos tu compañía
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== CARRUSEL ===== -->
+    <section class="carousel">
+      <div class="carousel-container">
+        <div class="slide active">
+          <img src="img/noticias/noticia1.jpg" alt="Noticia 1">
+          <div class="caption">Nueva música urbana llega a Radio Conecta</div>
+        </div>
+        <div class="slide">
+          <img src="img/noticias/noticia2.jpg" alt="Noticia 2">
+          <div class="caption">Entrevista exclusiva con artistas locales</div>
+        </div>
+        <div class="slide">
+          <img src="img/noticias/noticia3.jpg" alt="Noticia 3">
+          <div class="caption">Los top hits de la semana ya disponibles</div>
+        </div>
+      </div>
+      <div class="carousel-controls">
+        <button class="prev">&#10094;</button>
+        <button class="next">&#10095;</button>
+      </div>
+    </section>
+
+    <!-- ===== TOP 10 ===== -->
+    <section class="top10">
+      <h2>🔥 Top 10 de la Semana</h2>
+      <div class="contenedor-top10">
+
+        <article class="card-top">
+          <span class="puesto">#10</span>
+          <img src="img/top10/top10.jpg" alt="Anitta">
+          <h3>Anitta - Fuego y Pasión</h3>
+          <p>Cierra el Top 10 con un toque de energía brasileña.</p>
+          <audio controls>
+            <source src="audio/top10.mp3" type="audio/mpeg">
+          </audio>
+        </article>
+
+        <article class="card-top">
+          <span class="puesto">#9</span>
+          <img src="img/top10/top9.jpg" alt="Sebastián Yatra">
+          <h3>Sebastián Yatra - Energía Bonita</h3>
+          <p>Un tema con mensaje positivo y ritmos frescos.</p>
+          <audio controls>
+            <source src="audio/top9.mp3" type="audio/mpeg">
+          </audio>
+        </article>
+
+        <article class="card-top">
+          <span class="puesto">#8</span>
+          <img src="img/top10/top8.jpg" alt="Blessd">
+          <h3>Blessd - Quien TV Remix</h3>
+          <p>Otro éxito que sube rápidamente en las listas.</p>
+          <audio controls>
+            <source src="audio/top8.mp3" type="audio/mpeg">
+          </audio>
+        </article>
+
+        <article class="card-top">
+          <span class="puesto">#7</span>
+          <img src="img/top10/top7.jpg" alt="Myke Towers">
+          <h3>Myke Towers - Lluvia</h3>
+          <p>Su nuevo tema combina romanticismo y trap latino.</p>
+          <audio controls>
+            <source src="audio/top7.mp3" type="audio/mpeg">
+          </audio>
+        </article>
+
+      </div>
+
+      <a href="top10.html" class="btn-lista">Ver lista completa</a>
+    </section>
+
+    <!-- ===== REDES SOCIALES ===== -->
+    <section class="redes">
+      <h2>📲 Síguenos</h2>
+      <p>Conéctate con nosotros en todas las plataformas</p>
+      <div class="redes-icons">
+        <a href="https://facebook.com" target="_blank"><img src="img/redes/facebook.png" alt="Facebook"></a>
+        <a href="https://instagram.com" target="_blank"><img src="img/redes/instagram.png" alt="Instagram"></a>
+        <a href="https://tiktok.com" target="_blank"><img src="img/redes/tiktok.png" alt="TikTok"></a>
+        <a href="https://x.com" target="_blank"><img src="img/redes/x.png" alt="X"></a>
+        <a href="https://wa.me/573001234567" target="_blank"><img src="img/redes/whatsapp.png" alt="WhatsApp"></a>
+      </div>
+    </section>
+
+  </div> <!-- cierre contenido-principal -->
+  </div>
+
+  <script src="js/player.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

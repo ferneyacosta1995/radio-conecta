@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Radio Conecta | Más que radio, somos tu compañía</title>
+  <link rel="stylesheet" href="css/estilos.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="img/logo/favicon.png" type="image/png">
+</head>
+
+<body>
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="logo">
+      <img src="img/logo/logo.png" alt="Radio Conecta Logo" />
+    </div>
+
+    <nav>
+      <ul>
+        <li><a href="index.html" class="active">Inicio</a></li>
+        <li><a href="radio.html">Radio</a></li>
+        <li><a href="noticias.html">Noticias</a></li>
+        <li><a href="top10.html">Top 10</a></li>
+        <li><a href="programacion.html">Programación</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <!-- Botón destacado -->
+  <a href="radio.html" class="btn-live-header">Escuchar en vivo</a>
+  </header>
+
+  <!-- SECCIÓN PRINCIPAL: RADIO EN VIVO -->
+  <div id="pjax-container">
+  <main class="radio-en-vivo">
+    <div class="radio-bg-overlay">
+      <section class="radio-container">
+        <div class="radio-header">
+          <h1 class="radio-title">
+            <svg class="title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 18v-6a9 9 0 1 1 18 0v6"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 18a3 3 0 0 0 3 3h3v-6H6a3 3 0 0 0-3 3Zm18 0a3 3 0 0 1-3 3h-3v-6h3a3 3 0 0 1 3 3Z"/>
+            </svg>
+            <span>Radio Conecta</span> en Vivo
+          </h1>
+          <p class="radio-subtitle">Tu conexión 24/7 con la mejor música y locutores increíbles</p>
+        </div>
+
+        <!-- Reproductor Moderno (UI profesional, controla el reproductor global) -->
+        <div class="radio-player" id="radio-player">
+          <div class="rp-header">
+            <div class="rp-left">
+              <img class="rp-cover" src="img/logo/logo.png" alt="Radio Conecta" onerror="this.style.display='none'" />
+              <div class="rp-info">
+                <h3>Radio Conecta</h3>
+                <div class="rp-live"><span class="dot"></span> En vivo</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rp-controls">
+            <button class="rp-btn rp-play-toggle" aria-label="Reproducir/Pausar">
+              <svg class="rp-icon rp-play" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+              </svg>
+              <svg class="rp-icon rp-pause" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
+              </svg>
+            </button>
+
+            <div class="rp-volume">
+              <svg class="rp-vol-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z" />
+              </svg>
+              <input type="range" class="rp-vol-slider" min="0" max="100" step="1" value="80" aria-label="Volumen" />
+            </div>
+          </div>
+
+          <!-- Efecto visual animado (no sincronizado con el audio) -->
+          <div class="visual-eq" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <p class="now-playing">
+          <svg class="np-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 5h12a2 2 0 0 1 2 2v9a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V5Z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 9h5m-5 3h8M7 3h6"/>
+          </svg>
+          Transmitiendo en directo desde los estudios de <strong>Radio Conecta</strong>
+        </p>
+      </section>
+    </div>
+  </main>
+  </div>
+
+  <script src="js/player.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
