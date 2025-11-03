@@ -6,7 +6,16 @@
   }
 
   console.log('🎵 Creando nuevo RadioPlayer global');
-  const STREAM_URL = 'http://186.29.40.51:8000/stream';
+  
+  // Configuración de streams con Cloudflare Worker proxy
+  const STREAM_HTTP = 'http://186.29.40.51:8000/stream';
+  const STREAM_HTTPS = 'https://radio-conecta-proxy.ferneyacosta0101233.workers.dev'; // Proxy HTTPS
+  
+  // Usar HTTPS (con proxy) si la página es HTTPS, sino HTTP directo
+  const STREAM_URL = window.location.protocol === 'https:' ? STREAM_HTTPS : STREAM_HTTP;
+  
+  console.log('🎵 Protocolo de la página:', window.location.protocol);
+  console.log('🎵 URL del stream:', STREAM_URL);
 
   // Crear reproductor global único
   const audio = new Audio(STREAM_URL);
@@ -26,6 +35,105 @@
     const slider = document.querySelector('#sticky-player input[type="range"]');
     if (slider) slider.value = String(Math.round(audio.volume * 100));
   });
+
+  // Variable para controlar intentos de reconexión
+  let connectionAttempts = 0;
+  let hasShownHttpsWarning = false;
+
+  // Manejo de errores de reproducción
+  audio.addEventListener('error', (e) => {
+    console.error('❌ Error al cargar stream:', e);
+    connectionAttempts++;
+    
+    const errorCode = audio.error ? audio.error.code : 0;
+    let errorMsg = audio.error ? 
+      (audio.error.message || 'No se pudo conectar con la radio') :
+      'No se pudo conectar con la radio';
+    
+    // Mensajes específicos según el código de error
+    switch(errorCode) {
+      case 1: // MEDIA_ERR_ABORTED
+        errorMsg = 'Carga cancelada';
+        break;
+      case 2: // MEDIA_ERR_NETWORK
+        errorMsg = 'Error de red - Verifica tu conexión';
+        break;
+      case 3: // MEDIA_ERR_DECODE
+        errorMsg = 'Error al decodificar el audio';
+        break;
+      case 4: // MEDIA_ERR_SRC_NOT_SUPPORTED
+        errorMsg = 'Formato no soportado o servidor no disponible';
+        break;
+    }
+    
+    console.error(`Error ${errorCode}: ${errorMsg}`);
+    
+    // Si estamos en HTTPS y el stream HTTPS falla, mostrar mensaje específico
+    if (window.location.protocol === 'https:' && STREAM_URL.startsWith('https:') && !hasShownHttpsWarning) {
+      hasShownHttpsWarning = true;
+      console.warn('🔒 El servidor no acepta conexiones HTTPS');
+      showNotification('⚠️ El servidor de streaming no tiene HTTPS configurado', 'error');
+      
+      setTimeout(() => {
+        showNotification('💡 Solución: Contacta al administrador del servidor para habilitar SSL', 'warning');
+      }, 3000);
+      
+      setTimeout(() => {
+        showNotification('📖 Ver archivo SOLUCION-HTTPS.md para más detalles', 'info');
+      }, 6000);
+    } else {
+      showNotification('⚠️ ' + errorMsg, 'error');
+    }
+  });
+
+  // Función para mostrar notificaciones
+  function showNotification(message, type = 'info') {
+    const existing = document.getElementById('radio-notification');
+    if (existing) existing.remove();
+
+    const notif = document.createElement('div');
+    notif.id = 'radio-notification';
+    notif.style.cssText = `
+      position: fixed;
+      top: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: ${type === 'error' ? '#ff4d4f' : type === 'warning' ? '#ff8800' : '#00b7ff'};
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 9999;
+      font-size: 0.9rem;
+      max-width: 90%;
+      text-align: center;
+      animation: slideDown 0.3s ease;
+    `;
+    notif.textContent = message;
+    document.body.appendChild(notif);
+
+    setTimeout(() => {
+      notif.style.animation = 'slideUp 0.3s ease';
+      setTimeout(() => notif.remove(), 300);
+    }, 5000);
+  }
+
+  // Agregar animaciones CSS
+  if (!document.getElementById('notification-styles')) {
+    const style = document.createElement('style');
+    style.id = 'notification-styles';
+    style.textContent = `
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+        to { opacity: 1; transform: translateX(-50%) translateY(0); }
+      }
+      @keyframes slideUp {
+        from { opacity: 1; transform: translateX(-50%) translateY(0); }
+        to { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+      }
+    `;
+    document.head.appendChild(style);
+  }
 
   // UI mínima fija (sticky)
   function ensureStickyPlayer() {
@@ -130,7 +238,17 @@
         await audio.play(); 
         console.log('✅ Reproduciendo');
       }catch(e){ 
-        console.warn('⚠️ No se pudo reproducir:', e);
+        console.error('⚠️ No se pudo reproducir:', e);
+        
+        // Mostrar mensaje específico según el error
+        if (e.name === 'NotAllowedError') {
+          showNotification('⚠️ Interactúa con la página primero para reproducir', 'warning');
+        } else if (e.name === 'NotSupportedError') {
+          showNotification('❌ Formato de audio no soportado', 'error');
+        } else {
+          showNotification('❌ Error al reproducir. Verifica tu conexión', 'error');
+        }
+        throw e;
       } 
     },
     pause: ()=> { 
@@ -139,7 +257,8 @@
     },
     toggle: async ()=>{ if (audio.paused) return API.play(); else API.pause(); },
     setVolume: (v)=>{ audio.volume = Math.min(1, Math.max(0, v)); },
-    isPlaying: ()=> !audio.paused
+    isPlaying: ()=> !audio.paused,
+    getStreamUrl: ()=> STREAM_URL
   };
 
   // Exponer global
